@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { NextApiResponse } from 'next';
 
 // This API route handles individual task operations (GET, PUT, PATCH, DELETE)
 // The route pattern is: /api/tasks/[id]
@@ -7,7 +6,7 @@ import { NextApiResponse } from 'next';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { id } = params;
+    const id = params.id;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
@@ -54,7 +53,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${params.id} GET:`, error);
+    console.error(`Proxy error for task ${id} GET:`, error);
     return new Response(JSON.stringify({ error: 'Failed to fetch task' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -64,7 +63,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { id } = params;
+    const id = params.id;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
@@ -115,7 +114,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${params.id} PUT:`, error);
+    console.error(`Proxy error for task ${id} PUT:`, error);
     return new Response(JSON.stringify({ error: 'Failed to update task' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -125,7 +124,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { id } = params;
+    const id = params.id;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
@@ -176,7 +175,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${params.id} PATCH:`, error);
+    console.error(`Proxy error for task ${id} PATCH:`, error);
     return new Response(JSON.stringify({ error: 'Failed to update task completion' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -186,7 +185,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { id } = params;
+    const id = params.id;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
@@ -232,7 +231,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${params.id} DELETE:`, error);
+    console.error(`Proxy error for task ${id} DELETE:`, error);
     return new Response(JSON.stringify({ error: 'Failed to delete task' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
