@@ -4,10 +4,10 @@ export async function GET(request: NextRequest) {
   try {
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
-    console.log('Received authorization header:', authHeader);
+    console.log('Received authorization header for tasks GET:', authHeader);
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      console.log('No valid authorization header provided');
+      console.log('No valid authorization header provided for tasks GET');
       return new Response(JSON.stringify({ error: 'No valid authorization header provided' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
@@ -17,14 +17,14 @@ export async function GET(request: NextRequest) {
     // Get the API URL from environment variable
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     if (!apiUrl) {
-      console.log('API URL not configured');
+      console.log('API URL not configured for tasks GET');
       return new Response(JSON.stringify({ error: 'API URL not configured' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    console.log('Forwarding request to:', `${apiUrl}/api/tasks`);
+    console.log('Forwarding GET request to:', `${apiUrl}/api/tasks`);
 
     // Make the request to the backend API, forwarding the Authorization header
     const response = await fetch(`${apiUrl}/api/tasks`, {
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    console.log('Backend response status:', response.status);
+    console.log('Backend response status for tasks GET:', response.status);
 
     // Return the response from the backend
     const data = await response.json();
@@ -44,13 +44,70 @@ export async function GET(request: NextRequest) {
       status: response.status,
       headers: {
         'Content-Type': 'application/json',
-        // Forward any necessary headers from the backend response
-        ...(response.headers.get('content-type') && { 'Content-Type': response.headers.get('content-type')! }),
       },
     });
   } catch (error) {
-    console.error('Proxy error:', error);
+    console.error('Proxy error for tasks GET:', error);
     return new Response(JSON.stringify({ error: 'Failed to fetch tasks' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    // Get the Authorization header from the incoming request
+    const authHeader = request.headers.get('authorization');
+    console.log('Received authorization header for tasks POST:', authHeader);
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log('No valid authorization header provided for tasks POST');
+      return new Response(JSON.stringify({ error: 'No valid authorization header provided' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Get request body
+    const body = await request.json();
+
+    // Get the API URL from environment variable
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiUrl) {
+      console.log('API URL not configured for tasks POST');
+      return new Response(JSON.stringify({ error: 'API URL not configured' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    console.log('Forwarding POST request to:', `${apiUrl}/api/tasks`);
+
+    // Make the request to the backend API, forwarding the Authorization header and body
+    const response = await fetch(`${apiUrl}/api/tasks`, {
+      method: 'POST',
+      headers: {
+        'Authorization': authHeader, // Forward the original Authorization header
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(body)
+    });
+
+    console.log('Backend response status for tasks POST:', response.status);
+
+    // Return the response from the backend
+    const data = await response.json();
+    return new Response(JSON.stringify(data), {
+      status: response.status,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error('Proxy error for tasks POST:', error);
+    return new Response(JSON.stringify({ error: 'Failed to create task' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
