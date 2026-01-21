@@ -9,17 +9,7 @@ import { LoadingSpinner } from '../../components/ui/loading-spinner';
 import { Alert } from '../../components/ui/alert';
 import { Button } from '../../components/ui/button';
 import { TaskForm } from '../../components/tasks/task-form';
-import { proxyApiClient } from '../../lib/proxy-api';
-
-interface Task {
-  id: number;
-  title: string;
-  description: string | null;
-  completed: boolean;
-  user_id: string;
-  created_at: string;
-  updated_at: string;
-}
+import { proxyApiClient, Task } from '../../lib/proxy-api';
 
 interface TaskListProps {
   initialFilter?: 'all' | 'active' | 'completed';

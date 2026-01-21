@@ -7,9 +7,10 @@ import { Input } from '../../components/ui/input';
 import { Textarea } from '../../components/ui/textarea';
 import { Label } from '../../components/ui/label';
 import { Alert } from '../../components/ui/alert';
-import { proxyApiClient } from '../../lib/proxy-api';
+import { proxyApiClient, Task } from '../../lib/proxy-api';
 
-interface Task {
+// Define interface for form data where id is optional during creation
+interface FormTask {
   id?: number;
   title: string;
   description: string | null;
@@ -20,15 +21,15 @@ interface Task {
 }
 
 interface TaskFormProps {
-  task?: Task;
-  onSubmit: (task: Task) => void;
+  task?: FormTask;
+  onSubmit: (task: Task) => void;  // onSubmit expects the API response (Task with required id)
   onCancel: () => void;
   onError?: (error: string) => void;
 }
 
 export function TaskForm({ task, onSubmit, onCancel, onError }: TaskFormProps) {
   const { user } = useAuth();
-  const [formData, setFormData] = useState<Omit<Task, 'id'>>({
+  const [formData, setFormData] = useState<Omit<FormTask, 'id'>>({
     title: task?.title || '',
     description: task?.description || '',
     completed: task?.completed || false,
