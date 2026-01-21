@@ -5,21 +5,39 @@ This module creates and configures the FastAPI application with:
 - CORS middleware for frontend communication
 - Router registration for API endpoints
 - Health check endpoint
+- Database initialization on startup
 """
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlmodel import SQLModel
 from .core.config import settings
+from .core.database import engine
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Application lifespan manager.
 
-# Create FastAPI application
+    This function runs initialization tasks when the application starts up
+    and cleanup tasks when the application shuts down.
+    """
+    # Initialize database on startup
+    print("Initializing database...")
+    SQLModel.metadata.create_all(bind=engine)
+    print("Database initialized successfully!")
+    yield
+    # Cleanup on shutdown (if needed)
+
+# Create FastAPI application with lifespan
 app = FastAPI(
     title="Todo Web Application API",
     description="Authentication and task management API",
     version="1.0.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
+    lifespan=lifespan  # Add the lifespan to handle startup/shutdown events
 )
-
 
 # Configure CORS middleware
 # Allow frontend (localhost:3000) to communicate with backend (localhost:8000)
@@ -28,12 +46,14 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",  # Next.js development server
         "http://127.0.0.1:3000",
+        "https://*.hf.space",      # Hugging Face Spaces
+        "https://maryamghayas-todo-app-backend.hf.space",  # Your specific space
+        "http://maryamghayas-todo-app-backend.hf.space"    # HTTP version for Hugging Face Spaces
     ],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Allow all headers (including Authorization)
 )
-
 
 # Health check endpoint
 @app.get("/health", tags=["Health"])

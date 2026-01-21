@@ -14,7 +14,7 @@ from .config import settings
 
 
 # Password hashing context using bcrypt
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["bcrypt_sha256"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
@@ -35,8 +35,7 @@ def hash_password(password: str) -> str:
     # Truncate password to 72 bytes to comply with bcrypt limitations
     # Bcrypt has a maximum password length of 72 bytes (not characters)
     # UTF-8 encoded characters may be multiple bytes, so we truncate at 72 chars
-    truncated_password = password[:72]
-    return pwd_context.hash(truncated_password)
+    return pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -58,8 +57,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         False
     """
     # Truncate password to 72 bytes to comply with bcrypt limitations
-    truncated_password = plain_password[:72]
-    return pwd_context.verify(truncated_password, hashed_password)
+    return pwd_context.verify(plain_password, hashed_password)
 
 
 def create_access_token(user_id: UUID, email: str) -> str:

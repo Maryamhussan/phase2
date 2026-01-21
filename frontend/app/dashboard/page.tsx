@@ -22,16 +22,57 @@ export default function DashboardPage() {
 
   // Define fetchStats function so it can be called from the callback
   const fetchStats = async () => {
-    if (!token) return;
+    if (!token) {
+      console.log('No token available, skipping fetch');
+      setLoading(false);
+      return;
+    }
+
+    // Check if API URL is available
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (!apiUrl) {
+      console.error('NEXT_PUBLIC_API_URL is not defined');
+      setLoading(false);
+      return;
+    }
 
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+      // Validate token format (basic JWT validation)
+      if (!token) {
+        console.error('No token available');
+        setLoading(false);
+        return;
+      }
+
+      const tokenParts = token.split('.');
+      if (tokenParts.length !== 3) {
+        console.error('Invalid JWT token format');
+        setLoading(false);
+        return;
+      }
+
+      console.log('Using token:', token ? token.substring(0, 10) + '...' : 'NO TOKEN'); // Log only first 10 chars for security
+      console.log('Full token (first 50 chars):', token ? token.substring(0, 50) : 'NO TOKEN');
+
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      };
+
+      // Include the token in the Authorization header
+      headers['Authorization'] = `Bearer ${token}`;
+
+      console.log('Sending authorization header:', `Bearer ${token.substring(0, 20)}...`);
+
+      // Use the Next.js API route as a proxy to avoid CORS issues
+      const response = await fetch('/api/tasks', {
+        method: 'GET',
+        headers,
+        cache: 'no-cache'
       });
+
+      console.log('Response status:', response.status);
 
       if (response.ok) {
         const tasks = await response.json();
@@ -49,16 +90,26 @@ export default function DashboardPage() {
           pending,
           overdue
         });
+      } else {
+        // Handle non-2xx responses
+        const errorText = await response.text();
+        console.error('API error response:', response.status, errorText);
       }
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error('Network error fetching stats:', error);
+      console.error('Error details:', {
+        message: (error as Error)?.message,
+        stack: (error as Error)?.stack,
+        name: (error as Error)?.name
+      });
+      // You might want to show an error message to the user here
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (token) {
+    if (token && typeof window !== 'undefined') { // Ensure we're in browser environment
       fetchStats();
     }
   }, [token]);
