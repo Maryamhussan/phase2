@@ -9,7 +9,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { TaskForm } from '@/components/tasks/task-form';
-import { apiClient } from '@/lib/api-client';
+import { proxyApiClient } from '@/lib/proxy-api';
 
 interface Task {
   id: number;
@@ -53,15 +53,15 @@ export function TaskList({ initialFilter = 'all', onTaskChange }: TaskListProps)
       setLoading(true);
       setError(null);
 
-      const response = await apiClient.get<Task[]>('/api/tasks');
+      const tasksData = await proxyApiClient.getTasks();
 
-      console.log(`Received ${response.data.length} tasks from API:`,
-        response.data.map(t => ({id: t.id, title: t.title, completed: t.completed, createdAt: t.created_at}))
+      console.log(`Received ${tasksData.length} tasks from API:`,
+        tasksData.map(t => ({id: t.id, title: t.title, completed: t.completed, createdAt: t.created_at}))
       );
 
       // Remove duplicates by using unique IDs
       const seenIds = new Set<number>();
-      const uniqueTasks = response.data.filter(task => {
+      const uniqueTasks = tasksData.filter(task => {
         if (seenIds.has(task.id)) {
           console.log(`Found duplicate task with ID: ${task.id}`, task);
           return false; // Skip duplicate
@@ -109,13 +109,11 @@ export function TaskList({ initialFilter = 'all', onTaskChange }: TaskListProps)
 
     try {
       // Update the task on the server
-      const response = await apiClient.patch<Task>(`/api/tasks/${taskId}/complete`, {
-        completed: completed
-      });
+      const response = await proxyApiClient.updateTaskCompletion(taskId, completed);
 
       // Update with server response in case anything changed
       setTasks(prevTasks => prevTasks.map(task =>
-        task.id === taskId ? response.data : task
+        task.id === taskId ? response : task
       ));
     } catch (err: any) {
       setError(err.message || 'Failed to update task completion');
@@ -141,7 +139,7 @@ export function TaskList({ initialFilter = 'all', onTaskChange }: TaskListProps)
     setDeletingTaskIds(prev => [...prev, taskId]);
 
     try {
-      await apiClient.delete(`/api/tasks/${taskId}`);
+      await proxyApiClient.deleteTask(taskId);
       setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
     } catch (err: any) {
       setError(err.message || 'Failed to delete task');

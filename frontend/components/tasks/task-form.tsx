@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Alert } from '@/components/ui/alert';
-import { apiClient } from '@/lib/api-client';
+import { proxyApiClient } from '@/lib/proxy-api';
 
 interface Task {
   id?: number;
@@ -88,13 +88,13 @@ export function TaskForm({ task, onSubmit, onCancel, onError }: TaskFormProps) {
       if (task?.id) {
         console.log('Updating existing task with ID:', task.id);
         // Update existing task
-        const response = await apiClient.put<Task>(`/api/tasks/${task.id}`, formData);
-        onSubmit(response.data);
+        const response = await proxyApiClient.updateTask(task.id, formData);
+        onSubmit(response);
       } else {
         console.log('Creating new task');
         // Create new task
-        const response = await apiClient.post<Task>('/api/tasks', formData);
-        onSubmit(response.data);
+        const response = await proxyApiClient.createTask(formData);
+        onSubmit(response);
       }
     } catch (err: any) {
       console.error('Error in handleSubmit:', err);
