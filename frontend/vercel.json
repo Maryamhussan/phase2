@@ -1,9 +1,6 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "settings": {
-    "nodeVersion": "18.x"
-  },
   "routes": [
     {
       "src": "/api/(.*)",
