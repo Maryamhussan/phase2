@@ -4,9 +4,9 @@ import { NextRequest } from 'next/server';
 // The route pattern is: /api/tasks/[id]
 // This will be matched by the file structure: app/api/tasks/[id]/route.ts
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const { id } = await params;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
@@ -61,9 +61,9 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const { id } = await params;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
@@ -122,9 +122,9 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const { id } = await params;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
@@ -183,9 +183,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const { id } = await params;
 
     // Get the Authorization header from the incoming request
     const authHeader = request.headers.get('authorization');
