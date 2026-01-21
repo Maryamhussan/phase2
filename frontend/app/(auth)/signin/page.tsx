@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert } from '@/components/ui/alert';
-import { PasswordInput } from '@/components/ui/password-input';
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
+import { Label } from '../../../components/ui/label';
+import { Alert } from '../../../components/ui/alert';
+import { PasswordInput } from '../../../components/ui/password-input';
 import Link from 'next/link';
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '../../../lib/auth';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
@@ -59,7 +59,7 @@ export default function SignInPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="you@example.com"
+                placeholder="you../../..example.com"
                 className="mt-1"
               />
             </div>

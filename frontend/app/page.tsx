@@ -2,10 +2,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '../lib/auth';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { Button } from '../components/ui/button';
+import { ThemeToggle } from '../components/theme/theme-toggle';
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();

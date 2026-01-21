@@ -99,7 +99,7 @@ frontend/
 
 #### Next.js Configuration (`next.config.js`)
 ```javascript
-/** @type {import('next').NextConfig} */
+/** ../..type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     typedRoutes: true,
@@ -114,7 +114,7 @@ module.exports = nextConfig;
 
 #### Tailwind CSS Configuration (`tailwind.config.js`)
 ```javascript
-/** @type {import('tailwindcss').Config} */
+/** ../..type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -144,7 +144,7 @@ module.exports = {
 #### T001: Create Next.js 16+ Project
 ```bash
 # Create Next.js app with TypeScript and App Router
-npx create-next-app@latest frontend --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+npx create-next-app../..latest frontend --typescript --tailwind --eslint --app --src-dir --import-alias "../../*"
 
 # Navigate to frontend directory
 cd frontend
@@ -239,9 +239,9 @@ Create `frontend/components/theme/theme-toggle.tsx`:
 'use client';
 
 import { Moon, Sun } from 'lucide-react';
-import { useTheme } from '@/lib/theme';
+import { useTheme } from '../../lib/theme';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '../../components/ui/button';
 
 export function ThemeToggle() {
   const { theme, setTheme, isDarkMode } = useTheme();
@@ -332,7 +332,7 @@ Create `frontend/components/ui/button.tsx`:
 
 ```typescript
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',

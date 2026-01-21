@@ -1,15 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/lib/auth';
-import { TaskCard } from '@/components/tasks/task-card';
-import { TaskSearch } from '@/components/tasks/task-search';
-import { EmptyState } from '@/components/ui/empty-state';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { Alert } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { TaskForm } from '@/components/tasks/task-form';
-import { proxyApiClient } from '../lib/proxy-api';
+import { useAuth } from '../../lib/auth';
+import { TaskCard } from '../../components/tasks/task-card';
+import { TaskSearch } from '../../components/tasks/task-search';
+import { EmptyState } from '../../components/ui/empty-state';
+import { LoadingSpinner } from '../../components/ui/loading-spinner';
+import { Alert } from '../../components/ui/alert';
+import { Button } from '../../components/ui/button';
+import { TaskForm } from '../../components/tasks/task-form';
+import { proxyApiClient } from '../../lib/proxy-api';
 
 interface Task {
   id: number;

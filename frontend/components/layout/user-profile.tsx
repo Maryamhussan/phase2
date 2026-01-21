@@ -1,8 +1,8 @@
 'use client';
 
-import { useAuth } from '@/lib/auth';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
+import { useAuth } from '../../lib/auth';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../components/ui/dropdown-menu';
+import { Button } from '../../components/ui/button';
 import { User, LogOut } from 'lucide-react';
 
 export function UserProfile() {
@@ -15,7 +15,7 @@ export function UserProfile() {
   // Format full name
   const fullName = user.firstName && user.lastName
     ? `${user.firstName} ${user.lastName}`
-    : user.firstName || user.lastName || user.email.split('@')[0];
+    : user.firstName || user.lastName || user.email.split('../..')[0];
 
   return (
     <DropdownMenu>

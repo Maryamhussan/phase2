@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAuth } from '@/lib/auth';
-import { Header } from '@/components/layout/header';
-import { Sidebar } from '@/components/layout/sidebar';
-import { ProtectedRoute } from '@/components/auth/protected-route';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { useAuth } from '../../../lib/auth';
+import { Header } from '../../../components/layout/header';
+import { Sidebar } from '../../../components/layout/sidebar';
+import { ProtectedRoute } from '../../../components/auth/protected-route';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
+import { Badge } from '../../../components/ui/badge';
 import { Mail, User, Calendar, IdCard } from 'lucide-react';
 
 export default function ProfilePage() {
@@ -36,7 +36,7 @@ export default function ProfilePage() {
   // Format full name
   const fullName = user.firstName && user.lastName
     ? `${user.firstName} ${user.lastName}`
-    : user.firstName || user.lastName || user.email.split('@')[0];
+    : user.firstName || user.lastName || user.email.split('../../..')[0];
 
   return (
     <ProtectedRoute>
@@ -61,7 +61,7 @@ export default function ProfilePage() {
                         </div>
                         <div>
                           <h2 className="text-xl font-bold">{fullName}</h2>
-                          <p className="text-muted-foreground text-sm">@{user.email.split('@')[0]}</p>
+                          <p className="text-muted-foreground text-sm">../../..{user.email.split('../../..')[0]}</p>
                         </div>
                       </CardTitle>
                       <CardDescription>Your personal account information</CardDescription>

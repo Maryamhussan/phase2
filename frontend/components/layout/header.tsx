@@ -1,10 +1,10 @@
 'use client';
 
-import { useAuth } from '@/lib/auth';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import { UserProfile } from '@/components/layout/user-profile';
+import { useAuth } from '../../lib/auth';
+import { ThemeToggle } from '../../components/theme/theme-toggle';
+import { UserProfile } from '../../components/layout/user-profile';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from '../../components/ui/button';
 
 export function Header() {
   const { user, isAuthenticated, signOut } = useAuth();
