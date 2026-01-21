@@ -9,7 +9,7 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { TaskForm } from '@/components/tasks/task-form';
-import { proxyApiClient } from '../../lib/proxy-api';
+import { proxyApiClient } from '../lib/proxy-api';
 
 interface Task {
   id: number;

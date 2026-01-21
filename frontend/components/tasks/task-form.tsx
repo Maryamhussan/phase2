@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Alert } from '@/components/ui/alert';
-import { proxyApiClient } from '../../lib/proxy-api';
+import { proxyApiClient } from '../lib/proxy-api';
 
 interface Task {
   id?: number;
