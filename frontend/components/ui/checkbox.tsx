@@ -1,8 +1,9 @@
 import { cn } from '@/lib/utils';
-import { CheckboxHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, forwardRef } from 'react';
 
-export interface CheckboxProps extends CheckboxHTMLAttributes<HTMLInputElement> {
+export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
