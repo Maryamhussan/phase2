@@ -8,7 +8,7 @@ import { Label } from '../../../components/ui/label';
 import { Alert } from '../../../components/ui/alert';
 import { PasswordInput } from '../../../components/ui/password-input';
 import Link from 'next/link';
-import { useAuth } from '../../../lib/auth';
+import { useAuth } from '@/lib/auth';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');

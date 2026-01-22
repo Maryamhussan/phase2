@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '../../lib/auth';
+import { useAuth } from '@/lib/auth';
 import { ThemeToggle } from '../../components/theme/theme-toggle';
 import { UserProfile } from '../../components/layout/user-profile';
 import Link from 'next/link';

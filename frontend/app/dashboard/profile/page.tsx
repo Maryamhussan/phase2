@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAuth } from '../../../lib/auth';
+import { useAuth } from '@/lib/auth';
 import { Header } from '../../../components/layout/header';
 import { Sidebar } from '../../../components/layout/sidebar';
 import { ProtectedRoute } from '../../../components/auth/protected-route';

@@ -1,4 +1,4 @@
-import { cn } from '../../lib/utils';
+import { cn } from '@/lib/utils';
 import { CheckboxHTMLAttributes, forwardRef } from 'react';
 
 export interface CheckboxProps extends CheckboxHTMLAttributes<HTMLInputElement> {

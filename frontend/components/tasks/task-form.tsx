@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useAuth } from '../../lib/auth';
+import { useAuth } from '@/lib/auth';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Textarea } from '../../components/ui/textarea';
 import { Label } from '../../components/ui/label';
 import { Alert } from '../../components/ui/alert';
-import { proxyApiClient, Task } from '../../lib/proxy-api';
+import { proxyApiClient, Task } from '@/lib/proxy-api';
 
 // Define interface for form data where id is optional during creation
 interface FormTask {

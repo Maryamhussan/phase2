@@ -7,7 +7,7 @@ import { TaskList } from '../../components/tasks/task-list';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
 import { Calendar, CheckCircle, Clock, Star } from 'lucide-react';
-import { useAuth } from '../../lib/auth';
+import { useAuth } from '@/lib/auth';
 import { useEffect, useState } from 'react';
 
 export default function DashboardPage() {
