@@ -53,7 +53,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${id} GET:`, error);
+    console.error(`Proxy error for task GET:`, error);
     return new Response(JSON.stringify({ error: 'Failed to fetch task' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -114,7 +114,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${id} PUT:`, error);
+    console.error(`Proxy error for task PUT:`, error);
     return new Response(JSON.stringify({ error: 'Failed to update task' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -175,7 +175,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${id} PATCH:`, error);
+    console.error(`Proxy error for task PATCH:`, error);
     return new Response(JSON.stringify({ error: 'Failed to update task completion' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -231,7 +231,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
       },
     });
   } catch (error) {
-    console.error(`Proxy error for task ${id} DELETE:`, error);
+    console.error(`Proxy error for task DELETE:`, error);
     return new Response(JSON.stringify({ error: 'Failed to delete task' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
