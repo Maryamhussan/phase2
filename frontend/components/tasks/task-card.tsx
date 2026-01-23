@@ -40,8 +40,7 @@ export function TaskCard({ task, onToggleComplete, onEdit, onDelete, isUpdating,
   const handleEditSubmit = (updatedTask: Task) => {
     onEdit(updatedTask);
     setIsEditing(false);
-    // Update local state to reflect the changes
-    setLocalTask(updatedTask);
+    // Parent component handles state updates
   };
 
   const handleDeleteConfirm = () => {
