@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Modal } from '@/components/ui/modal';
@@ -29,15 +29,11 @@ interface TaskCardProps {
 export function TaskCard({ task, onToggleComplete, onEdit, onDelete, isUpdating, isDeleting }: TaskCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [localTask, setLocalTask] = useState<Task>(task);
 
   // Handle optimistic update for task completion
   const handleToggleComplete = (completed: boolean) => {
-    // Optimistically update the UI
-    const updatedTask = { ...localTask, completed };
-    setLocalTask(updatedTask);
-
     // Call the parent function to handle the API call in the background
+    // The parent will update the task state which will cause this component to re-render
     onToggleComplete(completed);
   };
 
@@ -58,25 +54,27 @@ export function TaskCard({ task, onToggleComplete, onEdit, onDelete, isUpdating,
       <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-3">
         <div className="flex items-center">
           <Checkbox
-            checked={localTask.completed}
+            id={`task-${task.id}-completed`}
+            name={`task-${task.id}-completed`}
+            checked={task.completed}
             onCheckedChange={(checked) => handleToggleComplete(!!checked)}
             className="mt-0 sm:mt-1"
           />
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className={`font-medium break-words ${localTask.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}>
-            {localTask.title}
+          <h3 className={`font-medium break-words ${task.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}>
+            {task.title}
           </h3>
 
-          {localTask.description && (
-            <p className={`text-sm mt-1 break-words ${localTask.completed ? 'text-muted-foreground/70' : 'text-muted-foreground'}`}>
-              {localTask.description}
+          {task.description && (
+            <p className={`text-sm mt-1 break-words ${task.completed ? 'text-muted-foreground/70' : 'text-muted-foreground'}`}>
+              {task.description}
             </p>
           )}
 
           <div className="text-xs text-muted-foreground mt-2">
-            Created: {new Date(localTask.created_at).toLocaleDateString()}
+            Created: {new Date(task.created_at).toLocaleDateString()}
           </div>
         </div>
 

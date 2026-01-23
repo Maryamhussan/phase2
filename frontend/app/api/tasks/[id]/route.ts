@@ -44,8 +44,32 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     console.log(`Backend response status for task ${id} GET:`, response.status);
 
-    // Return the response from the backend
-    const data = await response.json();
+    // Check if the response has content before trying to parse JSON
+    if (response.status === 204) {
+      // No content response
+      return new Response(null, {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    // Try to parse JSON response
+    let data;
+    try {
+      data = await response.json();
+    } catch (parseError) {
+      // If response is not JSON, return the text content
+      const text = await response.text();
+      return new Response(JSON.stringify({ message: text }), {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
     return new Response(JSON.stringify(data), {
       status: response.status,
       headers: {
@@ -105,8 +129,32 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     console.log(`Backend response status for task ${id} PUT:`, response.status);
 
-    // Return the response from the backend
-    const data = await response.json();
+    // Check if the response has content before trying to parse JSON
+    if (response.status === 204) {
+      // No content response
+      return new Response(null, {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    // Try to parse JSON response
+    let data;
+    try {
+      data = await response.json();
+    } catch (parseError) {
+      // If response is not JSON, return the text content
+      const text = await response.text();
+      return new Response(JSON.stringify({ message: text }), {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
     return new Response(JSON.stringify(data), {
       status: response.status,
       headers: {
@@ -166,8 +214,32 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
     console.log(`Backend response status for task ${id} PATCH:`, response.status);
 
-    // Return the response from the backend
-    const data = await response.json();
+    // Check if the response has content before trying to parse JSON
+    if (response.status === 204) {
+      // No content response
+      return new Response(null, {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    // Try to parse JSON response
+    let data;
+    try {
+      data = await response.json();
+    } catch (parseError) {
+      // If response is not JSON, return the text content
+      const text = await response.text();
+      return new Response(JSON.stringify({ message: text }), {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
     return new Response(JSON.stringify(data), {
       status: response.status,
       headers: {
@@ -223,8 +295,33 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 
     console.log(`Backend response status for task ${id} DELETE:`, response.status);
 
-    // Return the response from the backend
-    return new Response(null, {
+    // Check if the response has content before trying to parse JSON
+    if (response.status === 204) {
+      // No content response (typical for DELETE)
+      return new Response(null, {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    // Try to parse JSON response
+    let data;
+    try {
+      data = await response.json();
+    } catch (parseError) {
+      // If response is not JSON, return the text content
+      const text = await response.text();
+      return new Response(JSON.stringify({ message: text }), {
+        status: response.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(data), {
       status: response.status,
       headers: {
         'Content-Type': 'application/json',

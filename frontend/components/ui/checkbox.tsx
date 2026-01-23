@@ -4,6 +4,8 @@ import { InputHTMLAttributes, forwardRef } from 'react';
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
+  id?: string;
+  name?: string;
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
@@ -12,7 +14,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       <input
         type="checkbox"
         className={cn(
-          'h-4 w-4 rounded border border-input bg-background ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
+          'h-4 w-4 shrink-0 rounded border border-input bg-background ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2 accent-primary cursor-pointer',
           className
         )}
         ref={ref}

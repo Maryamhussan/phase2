@@ -36,7 +36,7 @@ export default function ProfilePage() {
   // Format full name
   const fullName = user.firstName && user.lastName
     ? `${user.firstName} ${user.lastName}`
-    : user.firstName || user.lastName || user.email.split('../../..')[0];
+    : user.firstName || user.lastName || user.email.split('@')[0];
 
   return (
     <ProtectedRoute>

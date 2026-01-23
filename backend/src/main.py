@@ -48,10 +48,12 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "https://*.hf.space",      # Hugging Face Spaces
         "https://maryamghayas-todo-app-backend.hf.space",  # Your specific space
-        "http://maryamghayas-todo-app-backend.hf.space"    # HTTP version for Hugging Face Spaces
+        "http://maryamghayas-todo-app-backend.hf.space",    # HTTP version for Hugging Face Spaces
+        "https://todo-app-frontend-flame-eight.vercel.app",  # Your Vercel frontend
+        "https://*.vercel.app",  # Allow all Vercel subdomains
     ],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE, PATCH, etc.)
     allow_headers=["*"],  # Allow all headers (including Authorization)
 )
 
