@@ -61,7 +61,7 @@ export default function ProfilePage() {
                         </div>
                         <div>
                           <h2 className="text-xl font-bold">{fullName}</h2>
-                          <p className="text-muted-foreground text-sm">../../..{user.email.split('../../..')[0]}</p>
+                          <p className="text-muted-foreground text-sm">{user.email.split('../../..')[0]}</p>
                         </div>
                       </CardTitle>
                       <CardDescription>Your personal account information</CardDescription>
